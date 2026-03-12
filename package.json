@@ -13,6 +13,12 @@
       "import":"./index.js"
     }
   },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "math",
     "geometry",
