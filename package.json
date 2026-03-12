@@ -1,6 +1,6 @@
 {
   "name": "light-math",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight JavaScript utility for complex mathematical calculations and geometric formulas.",
   "main": "./index.cjs",
   "module": "./index.js",
@@ -19,6 +19,11 @@
     "README.md",
     "LICENSE"
   ],
+"repository": {
+  "type": "git",
+  "url": "git+https://github.com/fadhiljemar/light-math.git"
+},
+"homepage": "https://github.com/fadhiljemar/light-math#readme",
   "keywords": [
     "math",
     "geometry",
