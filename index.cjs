@@ -102,14 +102,20 @@ const getMode = (data) => {
 const getQuartiles = (data) => {
   if (!Array.isArray(data) || data.length === 0) throw new Error("Input must be array.");
   const sorted = [...data].sort((a, b) => a - b);
+  const n = sorted.length;
+
   const getValue = (p) => {
-    const pos = (sorted.length - 1) * p;
+    if (p < 0 || p > 1) throw new Error("Percentile must be between 0 and 1.");
+    const pos = (n + 1) * p;
     const base = Math.floor(pos);
     const rest = pos - base;
-    return sorted[base + 1] !== undefined 
-      ? sorted[base] + rest * (sorted[base + 1] - sorted[base]) 
-      : sorted[base];
+
+    if (base <= 0) return sorted[0];
+    if (base >= n) return sorted[n - 1];
+
+    return sorted[base - 1] + rest * (sorted[base] - sorted[base - 1]);
   };
+
   return { q1: getValue(0.25), q2: getValue(0.50), q3: getValue(0.75) };
 };
 

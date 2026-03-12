@@ -40,8 +40,8 @@ console.log('getVolume(pyramid, 6, 4) =', getVolume('pyramid', 6, 4)); // 8
 console.log('getVolume(cube, 3) =', getVolume('cube', 3)); // 27
 console.log('getVolume(prism, 2, 3, 4) =', getVolume('prism', 2, 3, 4)); // 24
 
-const sample = [1, 2, 2, 3, 4, ];
-console.log('getMean([1,2,2,3,4]) =', getMean(sample)); // 2.666...
+const sample = [1, 2, 2, 3, 4];
+console.log('getMean([1,2,2,3,4]) =', getMean(sample)); // 2.4
 console.log('getMedian([1,2,2,3,4]) =', getMedian(sample)); // 2
 console.log('getMode([1,2,2,3,4]) =', getMode(sample)); // [2]
 console.log('getQuartiles([1,2,2,3,4]) =', getQuartiles(sample)); // {q1:1.25,q2:2,q3:3.25}
