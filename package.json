@@ -1,0 +1,27 @@
+{
+  "name": "light-math",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript utility for complex mathematical calculations and geometric formulas.",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
+  "exports":{
+    ".":{
+      "require":"./index.cjs",
+      "import":"./index.js"
+    }
+  },
+  "keywords": [
+    "math",
+    "geometry",
+    "hypotenuse",
+    "calculator",
+    "lightweight",
+    "math-utils"
+  ],
+  "author": "Fadhiljmimy",
+  "license": "MIT",
+  "type": "module"
+}
