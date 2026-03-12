@@ -48,7 +48,7 @@ console.log(getHypotenuse(6,2,{isSymbolic:true})); //return 2√10
 
 
 #### 📐 Geometry & Trigonometry
-| API           | Deskripsi                                                         | Params                                                  |
+| API           | Description                                                        | Params                                                  |
 | ------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
 | getHypotenuse | Calculates the hypotenuse of a triangle. Supports symbolic results (roots). | `a`: number, `b`: number, `options?`: {isSymbolic: boolean} |
 | getArea       | Calculating the area of ​​flat shapes such as circle, triangle, square, and rectangle.    | `shape`: string, `...args`: number[]                     |
@@ -59,7 +59,7 @@ console.log(getHypotenuse(6,2,{isSymbolic:true})); //return 2√10
 
 #### 📊Statistics
 
-| API | Deskripsi | Params |
+| API | Description | Params |
 |-----|-----------|--------|
 | getMean     |  get mean from number of arrays          |  `numbers`:number[]      |
 | getMedian    | get median from number of arrays          |  `numbers`:number[]      |
