@@ -47,6 +47,12 @@ console.log(getHypotenuse(6,2,{isSymbolic:true})); //return 2√10
 
 
 
+#### 🧮 Algebra
+| API | Description | Params |
+|-----|-------------|--------|
+| findQuadraticEquationRoots | Find real roots of ax² + bx + c = 0 | `a`: number, `b`: number, `c`: number |
+| findVariableValueFromEquation | Solve linear equation with a variable string (e.g. "2x+3=7") | `equation`: string, `variable`: string |
+
 #### 📐 Geometry & Trigonometry
 | API           | Description                                                        | Params                                                  |
 | ------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
