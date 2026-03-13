@@ -244,6 +244,25 @@ const isEven = (num) => num % 2 === 0;
  */
 const isOdd = (num) => num % 2 !== 0;
 
+
+
+/**
+ * Placeholder for quadratic equation root finding.
+ * @param {number} a - Coefficient of x^2.
+ * @param {number} b - Coefficient of x.
+ * @param {number} c - Constant term.
+ * @returns {object|string} Object with root values or message for no real roots.
+ */
+const findQuadraticEquationRoots = (a,b,c) => {
+   const discriminant = b*b - 4*a*c;
+   if(discriminant < 0){
+     return 'no real roots';
+   }
+    const root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+    const root2  = (-b - Math.sqrt(discriminant)) / (2*a);
+    return {root1,root2}
+};
+
 /* ==========================================================================
    COMMONJS EXPORT
    ========================================================================== */
@@ -264,5 +283,6 @@ module.exports = {
   getGCD,
   getLCM,
   isEven,
-  isOdd
+  isOdd,
+  findQuadraticEquationRoots
 };

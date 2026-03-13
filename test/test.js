@@ -15,6 +15,7 @@ import {
   getLCM,
   isEven,
   isOdd,
+  findQuadraticEquationRoots,
 } from '../index.js';
 
 console.log('--- Testing Light Math ---');
@@ -56,3 +57,5 @@ console.log('getLCM(8,12) =', getLCM(8, 12)); // 24
 console.log('isEven(4) =', isEven(4)); // true
 console.log('isOdd(5) =', isOdd(5)); // true
 
+
+console.log('findQuadraticEquationRoots(1,-5,-14) =', findQuadraticEquationRoots(1,-5,-14)); 

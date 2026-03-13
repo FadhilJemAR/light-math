@@ -253,9 +253,17 @@ export const isOdd = (num) => num % 2 !== 0;
 
 /**
  * Placeholder for quadratic equation root finding.
- * @param {string} equation - Quadratic equation e.g. 'ax^2 + bx + c = 0'.
- * @param {number} knownValue - Known value for solving additional constraints.
+ * @param {number} a - Coefficient of x^2.
+ * @param {number} b - Coefficient of x.
+ * @param {number} c - Constant term.
+ * @returns {object|string} Object with root values or message for no real roots.
  */
-export const findQuadraticEquationRoots = (equation, knownValue) => {
-   console.log(equation, knownValue);
+export const findQuadraticEquationRoots = (a,b,c) => {
+   const discriminant = b*b - 4*a*c;
+   if(discriminant < 0){
+     return 'no real roots';
+   }
+    const root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+    const root2  = (-b - Math.sqrt(discriminant)) / (2*a);
+    return {root1,root2}
 };
