@@ -16,6 +16,7 @@ import {
   isEven,
   isOdd,
   findQuadraticEquationRoots,
+  findVariableValueFromEquation
 } from '../index.js';
 
 console.log('--- Testing Light Math ---');
@@ -58,4 +59,5 @@ console.log('isEven(4) =', isEven(4)); // true
 console.log('isOdd(5) =', isOdd(5)); // true
 
 
-console.log('findQuadraticEquationRoots(1,-5,-14) =', findQuadraticEquationRoots(1,-5,-14)); 
+console.log('findQuadraticEquationRoots(1,-5,-14) =', findQuadraticEquationRoots(1,-5,-14)); //return {root1:7,root2:-2}
+console.log('findVariableValueFromEquation("20x + 9 = 10", "x") =', findVariableValueFromEquation("20x + 10 = 9", "x")); //return -0.05

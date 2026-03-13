@@ -267,3 +267,91 @@ export const findQuadraticEquationRoots = (a,b,c) => {
     const root2  = (-b - Math.sqrt(discriminant)) / (2*a);
     return {root1,root2}
 };
+
+
+/**
+ * finding variable value in a linear equation with equation string.
+ * Supports terms with + and -, variable coefficients, and variable on either side.
+ * Examples: "x + 9 = 8", "2x - 3 = 7", "3 + x = 5", "2x + 3x = 10".
+ * @param {string} equation - Linear equation in the form "ax + b = c".
+ * @param {string} variable - Variable to solve for.
+ * @returns {object} Object with the variable and its value.
+ */
+export const findVariableValueFromEquation = (equation, variable) => {
+  if (typeof equation !== 'string' || typeof variable !== 'string' || variable.trim() === '') {
+    throw new Error('Invalid input: equation and variable must be non-empty strings.');
+  }
+
+  const normalized = equation.replace(/\s+/g, '');
+  if (!normalized.includes('=')) {
+    throw new Error('Invalid equation format: missing = sign.');
+  }
+
+  const [left, right] = normalized.split('=');
+  if (left === '' || right === '') {
+    throw new Error('Invalid equation format.');
+  }
+
+  const termRegex = /[+-]?[^+-]+/g;
+  const sides = [ { expr: left, sideSign: 1 }, { expr: right, sideSign: -1 } ];
+  let variableCoefficient = 0;
+  let constantTotal = 0;
+  const varName = variable.trim();
+
+  for (const side of sides) {
+    const terms = side.expr.match(termRegex);
+    if (!terms) continue;
+
+    for (let term of terms) {
+      if (!term) continue;
+
+      const sign = term.startsWith('-') ? -1 : 1;
+      const raw = term.replace(/^[+-]/, '');
+
+      if (raw === '') {
+        throw new Error(`Invalid term '${term}' in equation.`);
+      }
+
+      // Normalize variable occurance like 2x, x, -x
+      const variablePattern = new RegExp(`^([0-9]*\.?[0-9]*)${varName}$`);
+      const varMatch = raw.match(variablePattern);
+
+      if (varMatch) {
+        let coef = varMatch[1] === '' ? 1 : parseFloat(varMatch[1]);
+        if (Number.isNaN(coef)) {
+          throw new Error(`Invalid coefficient in term '${term}'.`);
+        }
+        variableCoefficient += coef * sign * side.sideSign;
+      } else if (raw.includes(varName)) {
+        // catch cases like 2x, x, but variable might be in middle isn't allowed for linear eq
+        const stripped = raw.replace(varName, '');
+        if (stripped === '' || stripped === '+' || stripped === '-') {
+          let coef = stripped === '-' ? -1 : 1;
+          variableCoefficient += coef * sign * side.sideSign;
+        } else {
+          const coef = parseFloat(stripped);
+          if (Number.isNaN(coef)) {
+            throw new Error(`Invalid variable term '${term}'.`);
+          }
+          variableCoefficient += coef * sign * side.sideSign;
+        }
+      } else {
+        const value = parseFloat(raw);
+        if (Number.isNaN(value)) {
+          throw new Error(`Invalid constant term '${term}'.`);
+        }
+        constantTotal += value * sign * side.sideSign;
+      }
+    }
+  }
+
+  if (variableCoefficient === 0) {
+    if (constantTotal === 0) {
+      throw new Error('Infinite solutions.');
+    }
+    throw new Error('No solution.');
+  }
+
+  const result = -constantTotal / variableCoefficient;
+  return { [varName]: result };
+};
