@@ -1,7 +1,13 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    1. GEOMETRY & TRIGONOMETRY UTILS
    ========================================================================== */
 
+/**
+ * Simplifies a square root expression as a combined term if possible.
+ * Example: 8 -> "2√2", 9 -> "3".
+ * @param {number} n - Value to simplify under square root.
+ * @returns {string} Simplified form.
+ */
 const simplifyRoot = (n) => {
   const root = Math.sqrt(n);
   if (Number.isInteger(root)) return root.toString();
@@ -21,7 +27,14 @@ const simplifyRoot = (n) => {
   return `${exterior}√${interior}`;
 };
 
-const getHypotenuse = (a, b, options) => { 
+/**
+ * Calculates the hypotenuse of a right-angled triangle.
+ * @param {number} a - Side a
+ * @param {number} b - Side b
+ * @param {Object} [options] - { isSymbolic: boolean }
+ * @returns {number|string} Hypotenuse as number or simplified radical string.
+ */
+const getHypotenuse = (a, b, options) => {
   if (typeof a !== 'number' || typeof b !== 'number') {
     throw new Error("Invalid input: Side A and Side B type must be numbers.");
   }
@@ -32,18 +45,46 @@ const getHypotenuse = (a, b, options) => {
   return Math.hypot(a, b);
 };
 
+/**
+ * Converts degrees to radians.
+ * @param {number} degrees - Angle in degrees.
+ * @returns {number} Angle in radians.
+ */
 const toRadians = (degrees) => degrees * (Math.PI / 180);
 
+/**
+ * Calculates slope of line through two points.
+ * @param {number} x1 - x coordinate of point 1.
+ * @param {number} y1 - y coordinate of point 1.
+ * @param {number} x2 - x coordinate of point 2.
+ * @param {number} y2 - y coordinate of point 2.
+ * @returns {number} Slope or Infinity when vertical.
+ */
 const getSlope = (x1, y1, x2, y2) => {
-  if (x2 - x1 === 0) return Infinity; 
+  if (x2 - x1 === 0) return Infinity;
   return (y2 - y1) / (x2 - x1);
 };
 
+/**
+ * Calculates midpoint between two points.
+ * @param {number} x1 - x coordinate of point 1.
+ * @param {number} y1 - y coordinate of point 1.
+ * @param {number} x2 - x coordinate of point 2.
+ * @param {number} y2 - y coordinate of point 2.
+ * @returns {{x: number, y: number}} Midpoint coordinates.
+ */
 const getMidpoint = (x1, y1, x2, y2) => ({
   x: (x1 + x2) / 2,
   y: (y1 + y2) / 2
 });
 
+/**
+ * Calculates area for supported 2D shapes.
+ * @param {string} shape - 'circle', 'triangle', 'square', or 'rect'.
+ * @param {...number} args - Required parameters per shape.
+ * @returns {number} Area.
+ * @throws {Error} if shape not supported.
+ */
 const getArea = (shape, ...args) => {
   switch (shape.toLowerCase()) {
     case 'circle': return Math.PI * Math.pow(args[0], 2);
@@ -54,10 +95,17 @@ const getArea = (shape, ...args) => {
   }
 };
 
+/**
+ * Calculates volume for supported 3D shapes.
+ * @param {string} shape - 'sphere', 'pyramid', 'cube', or 'prism'.
+ * @param {...number} args - Required parameters per shape.
+ * @returns {number} Volume.
+ * @throws {Error} if shape not supported.
+ */
 const getVolume = (shape, ...args) => {
   switch (shape.toLowerCase()) {
     case 'sphere': return (4/3) * Math.PI * Math.pow(args[0], 3);
-    case 'pyramid': return (1/3) * args[0] * args[1]; 
+    case 'pyramid': return (1/3) * args[0] * args[1];
     case 'cube': return Math.pow(args[0], 3);
     case 'prism': return args[0] * args[1] * args[2];
     default: throw new Error("3D Shape not supported!");
@@ -68,6 +116,11 @@ const getVolume = (shape, ...args) => {
    2. STATISTICS & DATA ANALYSIS
    ========================================================================== */
 
+/**
+ * Calculates arithmetic mean.
+ * @param {number[]} numbers - Non-empty array.
+ * @returns {number} Mean.
+ */
 const getMean = (numbers) => {
   if (!Array.isArray(numbers) || numbers.length === 0) {
     throw new Error("Input must be a non-empty array of numbers.");
@@ -75,6 +128,11 @@ const getMean = (numbers) => {
   return numbers.reduce((acc, num) => acc + num, 0) / numbers.length;
 };
 
+/**
+ * Calculates median.
+ * @param {number[]} numbers - Non-empty array.
+ * @returns {number} Median.
+ */
 const getMedian = (numbers) => {
   if (!Array.isArray(numbers) || numbers.length === 0) {
     throw new Error("Input must be a non-empty array of numbers.");
@@ -84,6 +142,11 @@ const getMedian = (numbers) => {
   return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
 };
 
+/**
+ * Calculates mode(s).
+ * @param {number[]} data - Array of numbers.
+ * @returns {number[]} Array of mode values, or [] when all values appear once.
+ */
 const getMode = (data) => {
   const frequency = {};
   data.forEach(value => frequency[value] = (frequency[value] || 0) + 1);
@@ -99,6 +162,11 @@ const getMode = (data) => {
   return modes.length === Object.keys(frequency).length ? [] : modes;
 };
 
+/**
+ * Calculates quartiles Q1, Q2, Q3 using interpolation.
+ * @param {number[]} data - Non-empty array.
+ * @returns {{q1:number,q2:number,q3:number}} Quartile object.
+ */
 const getQuartiles = (data) => {
   if (!Array.isArray(data) || data.length === 0) throw new Error("Input must be array.");
   const sorted = [...data].sort((a, b) => a - b);
@@ -115,7 +183,6 @@ const getQuartiles = (data) => {
 
     return sorted[base - 1] + rest * (sorted[base] - sorted[base - 1]);
   };
-
   return { q1: getValue(0.25), q2: getValue(0.50), q3: getValue(0.75) };
 };
 
@@ -123,26 +190,58 @@ const getQuartiles = (data) => {
    3. NUMBER THEORY & ARITHMETIC
    ========================================================================== */
 
+/**
+ * Calculates factorial recursively.
+ * @param {number} n - Non-negative integer.
+ * @returns {number} n!.
+ */
 const getFactorial = (n) => {
   if (n < 0) throw new Error("Factorial not defined for negative numbers.");
   return n === 0 ? 1 : n * getFactorial(n - 1);
 };
 
+/**
+ * Determines if n is prime.
+ * @param {number} n - Number to test.
+ * @returns {boolean} True when prime.
+ */
 const isPrime = (n) => {
   if (n <= 1) return false;
   for (let i = 2; i <= Math.sqrt(n); i++) if (n % i === 0) return false;
   return true;
 };
 
+/**
+ * Computes greatest common divisor (Euclidean algorithm).
+ * @param {number} a
+ * @param {number} b
+ * @returns {number} GCD.
+ */
 const getGCD = (a, b) => {
   a = Math.abs(a); b = Math.abs(b);
   return !b ? a : getGCD(b, a % b);
 };
 
+/**
+ * Computes least common multiple.
+ * @param {number} a
+ * @param {number} b
+ * @returns {number} LCM.
+ */
 const getLCM = (a, b) => (a === 0 || b === 0) ? 0 : Math.abs(a * b) / getGCD(a, b);
 
+/**
+ * Checks if number is even.
+ * @param {number} num
+ * @returns {boolean}
+ */
 const isEven = (num) => num % 2 === 0;
 
+/**
+ * Checks if number is odd.
+ * @param {number} num
+ * @returns {boolean}
+ */
 const isOdd = (num) => num % 2 !== 0;
 
 /* ==========================================================================
